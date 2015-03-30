@@ -7,30 +7,39 @@ This is a challenge for new Go developers at the Huawei event on 3/31/2015.
 We will simulate a simple [Actor](http://en.wikipedia.org/wiki/Actor_model) in Golang
 for this challenge.
 
-The [actor model](http://en.wikipedia.org/wiki/Actor_model) is a concurrency
-pattern that prescribes a single process called an Actor to hold mutable state
-and serialize access to it.
-
-All communication to and from the Actor is done via messages, and only the
-Actor may modify its internal mutable state.
+The [actor model](http://en.wikipedia.org/wiki/Actor_model) is a well known concurrency
+pattern. In this pattern, a single process (called an actor) holds mutable state
+and serializes access to it. All communication to and from the Actor is done via sending messages, and only the Actor may modify its own internal mutable state.
 
 # The Challenge
 
-The challenge is to build an actor that manages a `map[string]string` internally. It should run inside a goroutine and the `main()` function should communicate with it to set and get 10,000 values, in serial.
+The challenge is to build an actor in Go that manages a `map[string]string` internally. It should run inside a goroutine and the `main()` function should communicate with it to set and get 10,000 values, in serial.
 
 ## Details
 
-The Actor will be a goroutine that has a `for` loop inside of it. Gets will happen on a `chan string` and set on a `chan setcmd`. `setcmd` looks like
-this:
+The Actor will be a goroutine that has a `for` loop inside of it. Gets will happen on a `chan getcmd` and set on a `chan setcmd`.
+
+`getcmd` looks like this:
+
+```go
+type getcmd struct {
+  key string
+  respChan chan string
+}
+
+//create with get := getcmd{key:"mykey", respChan:= make(chan string)}
+```
+
+and `setcmd` looks like this:
 
 ```go
 type setcmd struct {
   key string
   value string
 }
-```
 
-And you can create a new setcmd with `set := setcmd{key:"mykey", value:"myvalue"}`.
+//create with set := setcmd{key: "mykey", val:"myval"}
+```
 
 The approximate structure of the `func` that implements the actor looks like this:
 
