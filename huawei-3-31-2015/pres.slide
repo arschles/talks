@@ -233,19 +233,20 @@ Didn't cover
 
 * My challenge to new Gophers
 
-- Go to [[https://github.com/arschles/go-talks/blob/master/huawei-3-31-2015/go_challenge.md][github.com/arschles/go-talks/blob/master/huawei-3-31-2015/go_challenge.md]]
-- Write your solition at [[http://play.golang.org][play.golang.org]]
-- If you want feedback or help, click "Share" at the top and send me the link (contact information at the end)
+- Go to [[http://bit.ly/1Et4O7x][http://bit.ly/1Et4O7x]]
+- Write your solution at [[http://play.golang.org][play.golang.org]]
+- Click "Share" at the top and send the link to *arschles+gohuawei@gmail.com*
+- I will respond with feedback and we can discuss
 
 * My ask of existing Gophers
 
-Send me a code snippet of the most complex concurrent Go code you've seen.
+Send me a code snippet (*arschles+gohuawei@gmail.com*) of the most complex concurrent Go code you've seen.
 
 I want to discuss how you'd make it better.
 
 * Companies using Primarily Go
 
-- [[http://iron.io/][iron.io]]
+- [[http://iron.io/][Iron.io]]
 - [[https://coreos.com/][CoreOS]]
 - [[http://influxdb.com/][InfluxDB]]
 - [[https://www.docker.com/][Docker]]
