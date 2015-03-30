@@ -44,7 +44,7 @@ Very good choice for:
 - Great tools
 - Fun
 
-* Simple sample
+* Simple program
 
 .play concurrency_example.go
 
@@ -55,7 +55,7 @@ It's built into the language. IMO, the #1 most powerful feature of Go.
 - You define concurrent units of execution inside *Goroutines*
 - Goroutines can share memory or communicate over a *channels*
 - You write your programs as if they do blocking I/O
-- CPU intensive applications take advantage of all cores
+- Applications use *all* cores
 
 * Concurrency details
 
@@ -72,7 +72,7 @@ Real Go programs are in production at Google, Square, The New York Times, Github
 - Very few new lang features
 - "The Go Way"
 
-* My prediction
+* My predictions
 
 - Go's usage will steadily grow
 - More high profile open source projects will be written in Go
@@ -123,8 +123,7 @@ There are no other requisite steps to try the language.
 
 Setup for non-trivial development requires the following 3 steps:
 
-- Create a simple directory structure
-- Point an environment variable at it
+- Create and setup your GOPATH
 - Download the go binary to your executable path
 
 This process is by far the simplest I have encountered across any language. Go makes an excellent first impression.
@@ -162,12 +161,12 @@ For example, there is a Go parser built into the standard library. This feature 
 
 * 8. Packaging
 
-Go includes a primitive packaging scheme:
+Go includes a simple packaging scheme:
 
 - The toolchain installs a dependency by downloading the code and compiling it into your program
 - Packages can be hosted on major source code repositories or anywhere else that follows a simple HTTP request protocol.
 
-This scheme is primitive and simple at the same time. While many tools have been built to make it more robust, its simplicity enables an extremely low friction release process.
+This scheme is criticized a lot. The community has built many tools to make it more robust, but its simplicity enables an extremely low friction release process.
 
 * Suitability in cloud environments
 
@@ -178,12 +177,14 @@ Why Go is here to stay.
 The following key features make Go programs very easy to deploy in multiple scenarios
 
 - The Go compiler statically links its output binaries
-- Go binaries require no runtime. All necessary runtime components are compiled into the binary
+- Go binaries require no runtime/interpreter on the target. All necessary runtime components are compiled into the binary
 - The Go toolchain can cross compile programs. A developer on a Mac OS X machine can compile for a Linux target platform, for example
 
 * 1.1. Deployment scenarios - Web
 
-Statically linked binaries with no external dependencies (except libc if linux target) are much easier to deploy than dynamically linked binaries or JVM applications, for example.
+Statically linked binaries with no external dependencies (except libc if linux target) are much easier to deploy than dynamically linked binaries or JVM applications.
+
+Engineers won't choose Go for this feature, but they do appreciate it after they do.
 
 * 1.2. Deployment scenarios - CLI
 
@@ -202,8 +203,8 @@ Go has concurrency & I/O features that enable robust applications:
 - Runtime-managed goroutines
 - Built in, typed _channels_ for cross-goroutine communication and synchronization
 - _select_ statements for doing complex operations on multiple goroutines
-- ability to timeout on a channel send (good for partial failures)
-- Automatic context switching on I/O syscalls
+- ability to timeout on a channel send or recv.
+- automatic context switching on I/O syscalls.
 
 * 2.1. Concurrency example - access a shared external resource
 
@@ -217,7 +218,7 @@ Go has concurrency & I/O features that enable robust applications:
 
 Didn't cover
 
-- Heavy CPU usage
+- Concurrent CPU utilization
 - (De)multiplexing I/O
 - Fan-in / fan-out & pipelines
 - Long Tail Patterns (e.g. first one wins)
@@ -225,11 +226,10 @@ Didn't cover
 
 * In summary
 
-- Go is an exciting new language
-- It's growing fast
+- Go is a new, exciting and growing language
 - It's very mature for its age
-- It's being adopted primarily in systems niches
-- It has the feature set and community to expand beyond
+- Today it's being adopted primarily in systems niches
+- It will expand to be the de facto standard for web scale applications
 
 * My challenge to new Gophers
 
