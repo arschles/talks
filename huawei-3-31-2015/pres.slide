@@ -1,0 +1,163 @@
+Go
+And where it fits in software today
+31 Mar 2015
+Tags: Go, Golang, Programming Languages, Distributed Systems
+
+Aaron Schlesinger
+Sr. Engineer, Iron.io
+aaron@iron.io
+http://iron.io
+@arschles
+
+* About Me
+
+- Currently a database & backend systems engineer at Iron.io.
+- Writing Go for 1.5 years.
+- Worked on server side and distributed systems for 5 years
+- Go is my favorite language. I'm most productive and happiest here
+
+* Today
+
+I'm going to talk about why Go is powerful and how it represents the best of
+programming languages in the future.
+
+
+* What Is Go?
+
+A programming language that started at Google. From http://golang.org:
+
+  Go is an open source programming language that makes it easy to build simple,
+  reliable, and efficient software.
+
+Very good choice for:
+
+- Web servers
+- Systems utilities
+- Databases
+- Monitoring tools
+- ...
+
+* Why Should You Choose Go?
+
+- Efficient runtime
+- Simple & powerful primitives
+- Extremely productive
+- Great tools
+- Fun
+
+* Simple sample
+
+.play concurrency_example.go
+
+* Concurrency
+
+It's built into the language. IMO, the #1 most powerful feature of Go.
+
+- You define concurrent units of execution inside *Goroutines*
+- Goroutines can share memory or communicate over a *channels*
+- You write your programs as if they do blocking I/O
+- CPU intensive applications take advantage of all cores
+
+* Concurrency details
+
+- Goroutines have dynamically sized stacks
+- Runtime multiplexes your Goroutines onto threads
+- Runtime automatically context switches on syscalls & blocking channel sends
+
+* The current state of Go
+
+Real Go programs are in production at Google, Square, The New York Times,
+Github, Digital Ocean, Iron.io and many more.
+
+- Active & growing community
+- Core team focuses mostly on perf & tools
+- Very few new lang features
+- "The Go Way"
+
+* My prediction
+
+- Go's usage will steadily grow for the next 3-5 years
+- High profile open source projects will be written in Go
+- Go will be the default language to use in cloud computing environments
+- Because of the previous, Go will be the default stack for new software businesses
+
+Other programing languages will need to get better (particularly at concurrency and non-blocking I/O) to:
+
+- keep pace with cloud computing requirements
+- keep up with Go.
+
+* Evidence
+
+I will present the features that I believe will drive adoption of Go.
+
+* 1. "Buzz"
+
+Before a programmer chooses Go, he/she will hear about it primarily via blog
+posts, articles or word-of-mouth (conferences, meetups, friends, ...)
+
+* 1.1. Real example
+
+Travis Reeder, co-founder of Iron.io posted about his experience replacing existing software with Go
+
+.link http://blog.iron.io/2013/03/how-we-went-from-30-servers-to-2-go.html
+
+To date, it is one of Iron's most popular blog posts. It generated a large discussion on Hacker News
+
+.link https://news.ycombinator.com/item?id=5365096
+
+Similarly, there is significant, growing interest (and debate) around Go in the community at large.
+
+* 2. Install experience
+
+Anybody can _try_ Go by going to a compiler and runner service. This setup process has no steps.
+
+.link play.golang.org
+
+* 2.1. "Real" setup process
+
+Real development requires the following 3 steps:
+
+- create a simple directory structure
+- point an environment variable at it
+- download the go binary to your executable path
+
+This process is by far the simplest I have encountered. Go makes an excellent
+first impression.
+
+* 3. Toolchain
+
+The toolchain contains all of the tools a first time Go programmer will need to start building and running programs.
+
+It scales to large codebases too. I generally use only 1 additional tool in my everyday development.
+
+* 4. Dev/test workflow
+
+The language and compiler was designed to compile quickly, and it delivers.
+
+That simple feature implies other large benefits:
+
+- Tests are fast
+- Build pipelines are fast
+- Deploys happen quickly
+
+* 5. Everyday development
+
+Go enables developers to be highly productive.
+
+- The language is simple (25 keywords). Developers focus more on semantics, less on syntax
+- Documentation is accessible, centralized and well organized. See [[godoc.org][godoc.org]]
+- Go programs are statically compiled. Developers run their programs locally with no external dependencies.
+
+* 6. Concurrency
+
+Go combines the following features for a highly effective concurrency system:
+
+- Runtime-managed goroutines
+- Built in, typed _channels_ for cross-goroutine communication and synchronization
+- _select_ statements for doing complex operations on multiple goroutines
+
+* 6.1. Concurrency Example
+
+A pool of goroutines that access a shared external RPC
+
+.play concurrency_example1.go
