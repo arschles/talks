@@ -6,6 +6,7 @@ Tags: Go, Golang, Programming Languages, Distributed Systems
 Aaron Schlesinger
 Sr. Engineer, Iron.io
 aaron@iron.io
+arschles+gohuawei@gmail.com
 http://iron.io
 @arschles
 
@@ -21,7 +22,7 @@ http://iron.io
 I'm going to talk about why Go is powerful and why it will grow.
 
 
-* What Is Go?
+* About Go
 
 A programming language that started at Google. From [[http://golang.org][golang.org]]:
 
@@ -36,7 +37,7 @@ Very good choice for:
 - Monitoring tools
 - ...
 
-* Why should you choose Go?
+* Why Go?
 
 - Efficient runtime
 - Simple & powerful primitives
@@ -52,8 +53,8 @@ Very good choice for:
 
 It's built into the language. IMO, the #1 most powerful feature of Go.
 
-- You define concurrent units of execution inside *Goroutines*
-- Goroutines can share memory or communicate over a *channels*
+- You define concurrent units of execution inside *goroutines*
+- Goroutines can share memory or communicate over *channels*
 - You write your programs as if they do blocking I/O
 - Applications use *all* cores
 
@@ -93,7 +94,7 @@ I will present evidence for the following:
 
 * Adoption
 
-Why Go will grow in usage.
+Why the Go developer base will grow.
 
 * 1. Buzz
 
@@ -117,7 +118,7 @@ Similarly, there is significant, growing interest (and debate) around Go in the 
 
 Anybody can _try_ Go by going to [[play.golang.org][play.golang.org]].
 
-There are no other requisite steps to try the language.
+There are no other requisite steps to execute Go code.
 
 * 3. Installing Go
 
@@ -136,13 +137,11 @@ It scales to large codebases too. I generally use only 1 additional tool in my e
 
 * 5. Dev/test workflow
 
-The language and compiler was designed to compile quickly, and it delivers.
+The language and compiler were designed to compile code quickly and it delivers.
 
-Fast compilation enables an efficient local edit/test workflow.
-
-This benefit has significant developer efficiency advantages.
-
-Additionally, build/test/deploy pipelines can complete their tasks significantly faster.
+- Fast compilation enables an efficient local edit/test workflow
+- Fast compilation enables significant developer efficiency advantages
+- Additionally, build/test/deploy pipelines can complete their tasks significantly faster
 
 * 6. Everyday development
 
@@ -150,25 +149,27 @@ Go enables developers to write better code faster.
 
 - The language is simple (25 keywords) but powerful. Developers focus more on semantics, less on syntax
 - Documentation is accessible, centralized and well organized. See [[godoc.org][godoc.org]]
-- Industrial grade static checking is built in to the standard toolchain.
-- Go programs are statically linked. Developers run their programs locally with no external dependencies.
+- Industrial grade static checking is built into the standard toolchain
+- Go programs are statically linked. Developers run their programs locally with no external dependencies
 
 * 7. Extensibility
 
-The Go toolchain's feature set will grow primarily because the language is so simple.
+The Go toolchain's feature set will grow primarily because the language is so simple and powerful.
 
-For example, there is a Go parser built into the standard library. This feature has enabled and encouraged developers in the community to build code generation tools, new static checkers, etc...
+For example:
+
+There's a Go parser built into the standard library. Developers in the community have used this feature to quickly build high quality code generation tools, new static checkers, etc...
 
 * 8. Packaging
 
 Go includes a simple packaging scheme:
 
 - The toolchain installs a dependency by downloading the code and compiling it into your program
-- Packages can be hosted on major source code repositories or anywhere else that follows a simple HTTP request protocol.
+- Packages can be hosted on major source code repositories or any server that follows a simple HTTP request protocol
 
-This scheme is criticized a lot. The community has built many tools to make it more robust, but its simplicity enables an extremely low friction release process.
+Go packaging is criticized a lot. The community has built many tools to make it more robust, but its simplicity enables an extremely low friction release process.
 
-* Suitability in cloud environments
+* Suitability for cloud environments
 
 Why Go is here to stay.
 
@@ -180,13 +181,13 @@ The following key features make Go programs very easy to deploy in multiple scen
 - Go binaries require no runtime/interpreter on the target. All necessary runtime components are compiled into the binary
 - The Go toolchain can cross compile programs. A developer on a Mac OS X machine can compile for a Linux target platform, for example
 
-* 1.1. Deployment scenarios - Web
+* 1.1. Deploying a web application
 
 Statically linked binaries with no external dependencies (except libc if linux target) are much easier to deploy than dynamically linked binaries or JVM applications.
 
 Engineers won't choose Go for this feature, but they do appreciate it after they do.
 
-* 1.2. Deployment scenarios - CLI
+* 1.2. Deploying a CLI application
 
 Some developers are beginning to use Go for CLI applications as well. Cross compiling and static linking are both extremely important in this scenario.
 
