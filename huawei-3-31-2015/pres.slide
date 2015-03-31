@@ -12,15 +12,16 @@ http://iron.io
 
 * About Me
 
-- Currently a database & backend systems engineer at Iron.io.
-- Writing Go for 1.5 years.
+- Currently a database & backend systems engineer at Iron.io
+- Writing Go for 1.5 years
 - Worked on server side and distributed systems for 5 years
 - Go is my favorite language. I'm most productive and happiest here
 
 * Today
 
-I'm going to talk about why Go is powerful and why it will grow.
-
+- Why Go is powerful
+- Why it's important
+- Why it's worth your attention
 
 * About Go
 
@@ -31,11 +32,11 @@ A programming language that started at Google. From [[http://golang.org][golang.
 
 Very good choice for:
 
+- Cloud & microservices
 - Web servers
 - Systems utilities
 - Databases
 - Monitoring tools
-- ...
 
 * Why Go?
 
@@ -47,14 +48,18 @@ Very good choice for:
 
 * Simple program
 
+.play simple_example.go
+
+* Simple (concurrent) program
+
 .play concurrency_example.go
 
 * Concurrency
 
-It's built into the language. IMO, the #1 most powerful feature of Go.
+It's built into the language. I believe this is the #1 most powerful feature of Go.
 
-- You define concurrent units of execution inside *goroutines*
-- Goroutines can share memory or communicate over *channels*
+- You define concurrent units of execution inside *goroutines* (concurrently executing functions)
+- Goroutines can communicate & synchronize using *channels*
 - You write your programs as if they do blocking I/O
 - Applications use *all* cores
 
@@ -80,17 +85,17 @@ Real Go programs are in production at Google, Square, The New York Times, Github
 - Go will be the best language for cloud computing environments
 - Go will be the default stack for many new software businesses
 
-Other programing languages will need to get better to:
+Other programing languages will need to _improve_ to:
 
 - Keep pace with growing cloud computing requirements
-- Keep up with Go
+- Compete with Go
 
 * Evidence
 
 I will present evidence for the following:
 
-- Why I believe Go's adoption will grow
-- Why I believe it's the right choice for large scale applications today
+- Why Go's adoption will grow
+- Why Go is the right choice for large scale applications today
 
 * Adoption
 
@@ -98,7 +103,7 @@ Why the Go developer base will grow.
 
 * 1. Buzz
 
-Before a programmer chooses Go, he/she will probably  hear about it primarily via blog posts, articles or word-of-mouth (conferences, meetups, friends, ...).
+Before a programmer chooses Go, he/she will probably  hear about it primarily via blog posts, articles or word-of-mouth (conferences, meetups, friends).
 
 Many developers of all experience levels are writing and reading about Go today.
 
@@ -137,7 +142,7 @@ It scales to large codebases too. I generally use only 1 additional tool in my e
 
 * 5. Dev/test workflow
 
-The language and compiler were designed to compile code quickly and it delivers.
+The language and compiler were designed to compile code quickly and they deliver.
 
 - Fast compilation enables an efficient local edit/test workflow
 - Fast compilation enables significant developer efficiency advantages
@@ -169,7 +174,7 @@ Go includes a simple packaging scheme:
 
 Go packaging is criticized a lot. The community has built many tools to make it more robust, but its simplicity enables an extremely low friction release process.
 
-* Suitability for cloud environments
+* Suitability for cloud & microservices environments
 
 Why Go is here to stay.
 
@@ -185,7 +190,7 @@ The following key features make Go programs very easy to deploy in multiple scen
 
 Statically linked binaries with no external dependencies (except libc if linux target) are much easier to deploy than dynamically linked binaries or JVM applications.
 
-Engineers won't choose Go for this feature, but they do appreciate it after they do.
+Engineers won't choose Go for this feature, but they appreciate it after they do.
 
 * 1.2. Deploying a CLI application
 
@@ -232,14 +237,14 @@ Didn't cover
 - Today it's being adopted primarily in systems niches
 - It will expand to be the de facto standard for web scale applications
 
-* My challenge to new Gophers
+* Challenge to new Gophers
 
 - Go to [[http://bit.ly/1Et4O7x][http://bit.ly/1Et4O7x]]
 - Write your solution at [[http://play.golang.org][play.golang.org]]
 - Click "Share" at the top and send the link to *arschles+gohuawei@gmail.com*
 - I will respond with feedback and we can discuss
 
-* My ask of existing Gophers
+* Existing Gophers
 
 Send me a code snippet (*arschles+gohuawei@gmail.com*) of the most complex concurrent Go code you've seen.
 
