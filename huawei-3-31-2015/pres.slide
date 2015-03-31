@@ -122,7 +122,7 @@ There are no other requisite steps to execute Go code.
 
 * 3. Installing Go
 
-Setup for non-trivial development requires the following 3 steps:
+Setup for non-trivial development requires the following steps:
 
 - Create and setup your GOPATH
 - Download the go binary to your executable path
