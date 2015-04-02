@@ -1,6 +1,6 @@
 # The Go Challenge
 
-This is a challenge for new Go developers at the Huawei event on 3/31/2015.
+A simple challenge for new Go developers.
 
 # Context
 
