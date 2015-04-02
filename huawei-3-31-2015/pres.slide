@@ -8,6 +8,7 @@ Sr. Engineer, Iron.io
 aaron@iron.io
 arschles+gohuawei@gmail.com
 http://iron.io
+http://github.com/arschles
 @arschles
 
 * About Me
@@ -121,7 +122,7 @@ Similarly, there is significant, growing interest (and debate) around Go in the 
 
 * 2. First line of code
 
-Anybody can _try_ Go by going to [[play.golang.org][play.golang.org]].
+Anybody can _try_ Go by going to [[http://play.golang.org][play.golang.org]].
 
 There are no other requisite steps to execute Go code.
 
@@ -153,7 +154,7 @@ The language and compiler were designed to compile code quickly and they deliver
 Go enables developers to write better code faster.
 
 - The language is simple (25 keywords) but powerful. Developers focus more on semantics, less on syntax
-- Documentation is accessible, centralized and well organized. See [[godoc.org][godoc.org]]
+- Documentation is accessible, centralized and well organized. See [[http://godoc.org][godoc.org]]
 - Industrial grade static checking is built into the standard toolchain
 - Go programs are statically linked. Developers run their programs locally with no external dependencies
 
