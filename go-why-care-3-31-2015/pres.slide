@@ -6,7 +6,7 @@ Tags: Go, Golang, Programming Languages, Distributed Systems
 Aaron Schlesinger
 Sr. Engineer, Iron.io
 aaron@iron.io
-arschles+gohuawei@gmail.com
+arschles@gmail.com
 http://iron.io
 http://github.com/arschles
 @arschles
@@ -242,12 +242,12 @@ Didn't cover
 
 - Go to [[http://bit.ly/1Et4O7x][http://bit.ly/1Et4O7x]]
 - Write your solution at [[http://play.golang.org][play.golang.org]]
-- Click "Share" at the top and send the link to *arschles+gohuawei@gmail.com*
+- Click "Share" at the top and send the link to *arschles@gmail.com*
 - I will respond with feedback and we can discuss
 
 * Existing Gophers
 
-Send me a code snippet (*arschles+gohuawei@gmail.com*) of the most complex concurrent Go code you've seen.
+Send me a code snippet (*arschles@gmail.com*) of the most complex concurrent Go code you've seen.
 
 I want to discuss how you'd make it better.
 
