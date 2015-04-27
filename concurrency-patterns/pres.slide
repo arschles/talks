@@ -1,0 +1,36 @@
+Concurrency Patterns in Go
+Or, how to keep your sanity and your hair
+26 May 2015
+Tags: Go, Golang, Programming Languages, Concurrency
+
+Aaron Schlesinger
+Sr. Engineer, Iron.io
+aaron@iron.io
+arschles@gmail.com
+http://iron.io
+http://github.com/arschles
+@arschles
+
+* About Me
+
+- Database & backend systems engineer at Iron.io
+- Writing Go for ~2 yrs
+- Server side and distributed systems for 6 years
+- Go is my favorite language. I'm most productive and happiest here
+
+* Today
+
+- Locks, channels, atomics...
+- [[http://blog.golang.org/go-concurrency-patterns-timing-out-and][Timing out, moving on]]
+- For-select loops in general
+- Testing concurrency
+
+* "It's almost too easy to write concurrency bugs in Go"
+
+Said this in abstract.
+
+Because Go has *lots* of concurrency primitives.
+
+Makes it a powerful language & runtime
+
+* 
