@@ -240,7 +240,7 @@ Didn't cover
 
 * Challenge to new Gophers
 
-- Go to [[http://bit.ly/1Et4O7x][http://bit.ly/1Et4O7x]]
+- Go to [[http://bit.ly/1B09b3F][http://bit.ly/1Et4O7x]]
 - Write your solution at [[http://play.golang.org][play.golang.org]]
 - Click "Share" at the top and send the link to *arschles@gmail.com*
 - I will respond with feedback and we can discuss
@@ -258,7 +258,7 @@ I want to discuss how you'd make it better.
 - [[http://influxdb.com/][InfluxDB]]
 - [[https://www.docker.com/][Docker]]
 - [[https://hashicorp.com/][Hashicorp]]
-- [[http://walmartlabs.com][Walmart Labs]
+- [[http://walmartlabs.com][Walmart Labs]]
 
 * Major open source projects written in Go
 
@@ -266,3 +266,4 @@ I want to discuss how you'd make it better.
 - [[https://github.com/GoogleCloudPlatform/kubernetes][Kubernetes]]
 - [[https://github.com/hashicorp/terraform][Terraform]]
 - [[https://github.com/mitchellh/packer][Packer]]
+- [[https://github.com/docker/docker][Docker]]
