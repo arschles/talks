@@ -1,6 +1,6 @@
 Go
 Where it's going and why you should pay attention
-31 Mar 2015
+14 May 2015
 Tags: Go, Golang, Programming Languages, Distributed Systems
 
 Aaron Schlesinger
@@ -251,13 +251,14 @@ Send me a code snippet (*arschles@gmail.com*) of the most complex concurrent Go 
 
 I want to discuss how you'd make it better.
 
-* Companies using Primarily Go
+* Companies using Go
 
 - [[http://iron.io/][Iron.io]]
 - [[https://coreos.com/][CoreOS]]
 - [[http://influxdb.com/][InfluxDB]]
 - [[https://www.docker.com/][Docker]]
 - [[https://hashicorp.com/][Hashicorp]]
+- [[http://walmartlabs.com][Walmart Labs]
 
 * Major open source projects written in Go
 
