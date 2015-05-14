@@ -5,10 +5,9 @@ Tags: Go, Golang, Programming Languages, Distributed Systems
 
 Aaron Schlesinger
 Sr. Engineer, Iron.io
-aaron@iron.io
 arschles@gmail.com
-http://iron.io
 http://github.com/arschles
+http://iron.io
 @arschles
 
 * About Me
@@ -259,6 +258,8 @@ I want to discuss how you'd make it better.
 - [[https://www.docker.com/][Docker]]
 - [[https://hashicorp.com/][Hashicorp]]
 - [[http://walmartlabs.com][Walmart Labs]]
+- [[http://cloudflare.com][Cloudflare]]
+- [[http://google.com][Google]] (of course)
 
 * Major open source projects written in Go
 
@@ -267,3 +268,4 @@ I want to discuss how you'd make it better.
 - [[https://github.com/hashicorp/terraform][Terraform]]
 - [[https://github.com/mitchellh/packer][Packer]]
 - [[https://github.com/docker/docker][Docker]]
+- [[https://github.com/mailgun/vulcand][Vulcand]]
