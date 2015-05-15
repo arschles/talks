@@ -209,8 +209,9 @@ Go has concurrency & I/O features that enable robust applications:
 - Runtime-managed goroutines
 - Built in, typed _channels_ for cross-goroutine communication and synchronization
 - _select_ statements for doing complex operations on multiple goroutines
-- ability to timeout on a channel send or recv.
-- automatic context switching on I/O syscalls.
+- ability to timeout on a channel send or recv
+- automatic context switching on I/O syscalls
+- make it work, make it right, make it fast
 
 * 2.1. Concurrency example - access a shared external resource
 
