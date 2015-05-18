@@ -1,5 +1,5 @@
 Concurrency Patterns in Go
-Or, how to keep your sanity and your hair
+How to keep your sanity and your hair
 26 May 2015
 Tags: Go, Golang, Programming Languages, Concurrency
 
@@ -14,23 +14,60 @@ http://github.com/arschles
 * About Me
 
 - Database & backend systems engineer at Iron.io
-- Writing Go for ~2 yrs
-- Server side and distributed systems for 6 years
-- Go is my favorite language. I'm most productive and happiest here
+- Writing Go for ~2 yrs, JVM for a while before that
+- Distributed systems at Zynga, StackMob, PayPal, now Iron
+- Go. I'm finally happy
 
 * Today
 
-- Locks, channels, atomics...
-- [[http://blog.golang.org/go-concurrency-patterns-timing-out-and][Timing out, moving on]]
-- For-select loops in general
+- Locks & channels...
+- [[http://blog.golang.org/go-concurrency-patterns-timing-out-and][Timeouts]] & [[net.Context][http://godoc.org/golang.org/x/net/context]]
+- For-select loops
 - Testing concurrency
 
 * "It's almost too easy to write concurrency bugs in Go"
 
-Said this in abstract.
-
 Because Go has *lots* of concurrency primitives.
 
-Makes it a powerful language & runtime
+We have powerful tools, I'm discussing how to use them responsibly.
 
-* 
+* Something old
+
+We (Iron.io) still use locks.
+
+Prefer "sharing memory by communicating" but if you must use locks:
+
+.image maintainer-serial-killer.jpg
+
+* Specifically, here's what I think
+
+- use defer l.Unlock() wherever possible
+- document ownership in your *public* interface
+- if mutual exclusion crosses a public interface boundary, abstract it
+
+Also, good conventions already exist from other communities.
+
+* It's all about the docs
+
+.code request_ids.go
+
+* Something new
+ (TODO: Channels)
+Like I said, prefer share memory by communicating.
+
+* Timeouts & Context
+
+Context is a great tool for timeouts.
+
+* For-select loops
+
+Often used as event loops. select on 1+ channels to do some work.
+
+- always have an ack. make the channel pass a channel to ack on
+- if you're doing something on a timer, use a built in ack
+- use context.Done for cancellation
+- WaitGroup for done and WaitGroup for started
+
+* Testing concurrency
+
+- acks for timers and events in for-select
