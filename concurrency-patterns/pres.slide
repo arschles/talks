@@ -187,17 +187,5 @@ Exercise left to the reader.
 Go already has higher level concurrency abstractions, I believe we're starting to
 get good patterns/tools to use them better.
 
-- Documentation conventions for concurrency (know before experimenting, locks)
--
-'re starting
-to see some standardization on how to use them.
-higher up the stack.
-
-Beyond good documentation, We talked about `net.Context`,
-
-Fan-in is well known, but is evolving...
-
-Because of `net.Context`. It's a powerful
-
-`net.Context` is powerful, try it in a part of your codebase, you'll see
-how easily it spreads. The patterns I talked about
+I'm most excited to see `net.Context` spread throughout the community.
+Very powerful for building large systems, especially I/O heavy.
