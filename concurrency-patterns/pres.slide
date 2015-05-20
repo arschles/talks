@@ -57,8 +57,7 @@ Also, good conventions already exist from other communities (e.g. lock order con
  share memory by communicating.
 
 - Channels + goroutines are "easy" but powerful enough to build real systems
-- Use them by default
-- They're first class for a reason
+- They're first class for a reason. Use them by default
 - When in doubt, ask why you _shouldn't_ use them to build your concurrent system
 
 * Specifically
