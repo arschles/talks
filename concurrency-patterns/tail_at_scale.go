@@ -12,9 +12,8 @@ func main() {
 	ch := make(chan int)
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Millisecond)
 	defer cancel()
-	// submit the same search request to 10 servers
 	for i := 0; i < 10; i++ {
-		// get (not shown) sleeps for a random duration <= 100ms,
+		// get sleeps for a random duration <= 100ms,
 		// then sends a random int on ch. stops if ctx.Done() receives.
 		go get(ctx, ch)
 	}

@@ -1,5 +1,4 @@
 Concurrency Patterns
-(Mostly) for library authors
 26 May 2015
 Tags: Go, Golang, Programming Languages, Concurrency
 
@@ -9,12 +8,12 @@ aaron@iron.io
 http://github.com/arschles
 @arschles
 
-* About Me
+* About me
 
 - Database & backend systems engineer at Iron.io
 - Writing Go for ~2 yrs, JVM for a while during/before that
 - Distributed systems at Zynga, StackMob, PayPal, now Iron
-- Go. I'm finally happy
+- C -> C++ -> Python/PHP -> Java -> Scala -> Go
 
 * "It's almost too easy to write concurrency bugs in Go"
 
@@ -22,148 +21,186 @@ Because Go has powerful concurrency primitives.
 
 I'm discussing today how to use them responsibly.
 
-This talk is mostly aimed toward library authors, but will apply to all Go programmers.
+This talk is aimed toward anyone who writes reusable code.
 
 * Today
 
-Conventions for
+Conventions & patterns for:
 
-- `mutex`, `chan`, `select`, and `sync.WaitGroup`
-- [[http://blog.golang.org/go-concurrency-patterns-timing-out-and][Timeouts]], cancellation & [[http://godoc.org/golang.org/x/net/context][net.Context]]
+- `mutex`, `chan` and `sync.WaitGroup`
+- [[http://blog.golang.org/go-concurrency-patterns-timing-out-and][Timeouts]], cancellation and [[http://godoc.org/golang.org/x/net/context][net.Context]]
 - For-select loops
 
 * Something old
 
-We (Iron.io) still use locks.
+Locks have a time and a place. We found a few at Iron.io (building a distributed DB).
 
-Prefer "sharing memory by communicating" but if you must use locks:
+If you use locks:
 
 .image maintainer-serial-killer.jpg
 
-* Go-specific parts
+But prefer sharing memory by communicating.
+
+* Go-specific conventions
 
 - `defer` unlocking wherever possible
-- document ownership in your *public* interface
-- if mutual exclusion crosses a public interface boundary, abstract it
+- Document ownership in your *public* interface
+- If mutual exclusion crosses a public interface boundary, abstract it
 
 Also, good conventions already exist from other communities (e.g. lock order conventions).
 
-* Documentation
+* Documentating Mutual Exclusion
 
 .code request_ids.go
 
 * Channels
 
- share memory by communicating.
+ Share memory by communicating.
+
+This means passing messages.
 
 - Channels + goroutines are "easy" but powerful enough to build real systems
-- They're first class for a reason. Use them by default
-- When in doubt, ask why you _shouldn't_ use them to build your concurrent system
+- They're built in for a reason. Use them by default
+- When in doubt, ask why you _shouldn't_ use them to communicate between goroutines
 
-* Specifically
+* Conventions for Channels
 
-- Document channel communication across `func` boundaries
+- Document sends and receives across `func` boundaries: who and how?
 - Enlist the compiler. Use directional channels
-- Don't return a `chan` unless the `func` is a generator
+- Don't return a `chan` unless the `func` is a [[https://talks.golang.org/2012/concurrency.slide#25][generator]]
 - `close` is a useful signal to callers. Use it and document it
 
 * Example
 
 .code channels.go
 
-* Select
+* On Documentation
 
-Channels of channels are useful for replying to a sender. Plenty has been written here.
-
-Listening on channels-of-channels in a `select` enables a `func` to offer many 'services'.
-
-That's very helpful for introspecting the state of a goroutine.
-
-* Introspection
-
-.play select_ack.go /^func doWork/,/^}/
+- Documentation may establish contracts or invariants that code can't or won't
+- Code should be as self-documenting as possible, but don't let Godoc be empty
+- The remainder of this talk shows has mostly runnable code
 
 * WaitGroup
 
-If you're waiting for a `chan` to close or receive a `struct{}`, think about using a WaitGroup.
+If you're waiting for a `chan` to close or receive a `struct{}`, can you use a `sync.WaitGroup` instead?
 
-Passing these around as signals of behavior can also help tests.
+Use these as:
+
+- Notifiers for one-time events
+- Synchronization points to write deterministic tests
 
 * Notification of an event
-
-Trivial example.
 
 .code wg_notification.go
 
 * Revisiting fan-in
 
-Read about it under "Fan-out, fan-in" section at [[https://blog.golang.org/pipelines][https://blog.golang.org/pipelines]].
+.image fan.jpg
 
-`sync.WaitGroup` makes fan-in simple & understandable enough to
-convert non-concurrent code to concurrent with this pattern.
+(Taken from [[https://talks.golang.org/2012/concurrency.slide#28][https://talks.golang.org/2012/concurrency.slide#28]], credit Renée French)
 
-In many cases, you can get an easy latency win without changing an API.
+* Why?
 
-* Before - sequential datastore queries
+If you can do work concurrently, do it. There's no excuse not to.
+
+How I'm defining fan-in:
+
+- A code pattern to gather results from 2 or more goroutines
+- An algorithm to follow for converting sequential code to concurrent
+
+* Details
+
+- Read about it under "Fan-out, fan-in" section at [[https://blog.golang.org/pipelines][https://blog.golang.org/pipelines]]
+- `sync.WaitGroup` and a few channels make fan-in simple & understandable
+- In many cases, you can get an easy latency win without changing an API
+
+* Sequential datastore queries
 
 .play sequential_datastore.go /^func GetAll/,/^}/
 
-* After - concurrent datastore queries
+* Concurrent datastore queries
 
 .play concurrent_datastore.go /^func GetAll/,/^}/
 
-* Timeouts & Context
+* Production issues
 
-[[https://blog.golang.org/context][`net.Context`]] does a lot of the work for you.
+Specifically, issues in long-running systems.
 
-- If you are waiting for a channel, don't wait forever
-- Ideally, all goroutines take a context
-- Context adds more control and testability
+- They will happen
+- Test for them
+- Even if you can't, be proactive and try to fail gracefully
+
+* Timeouts
+
+Your system shouldn't grind to a halt on channel sends.
+
+.image deadlock.png
+
+Select on the channel and a `time.Timer`. Or, do better...
+
+* Use net.Context
+
+[[https://blog.golang.org/context][`net.Context`]] has a nice interface in front of timers.
+
+- I'm cheating here. I said everything would be done with the standard library
+- Contexts are more than a timer. They provide a nice interface with some extras
+- You could build and test your own context in a few hours, from the stdlib
+- That's my excuse
+
+* Context interface
+
+.code context-bare.go
+
+* Using contexts
+
+- They add cancellation
+- They build a tree of control
 
 `net.Context` is a good universal tool for timeouts/cancellation in a large codebase.
 
-* Polling a queue
+* Contexts in a distributed system
 
-.play -numbers poller.go /^func main/,/^}/
+The Tail at Scale.
 
-* The tail at scale
-
-Jeff Dean talk/paper. I originally saw it at [[https://www.youtube.com/watch?v=C_PxVdQmfpk][Ricon 2013 Talk]] (paper behind a paywall, but [[http://dirlt.com/tail-at-scale.html#sec-1-7-1][summary here]]).
-
-Talks about hedged requests.
-
-Do a request that doesn't have side-effects, cancel remaining requests after first returns.
+- Jeff Dean talk/paper. I originally saw it at a [[https://www.youtube.com/watch?v=C_PxVdQmfpk][Ricon 2013 Talk]]
+- Hedged requests: do a few identical GET (e.g. no side effects) requests, cancel remaining requests after first returns
 
 Rob showed a variant in [[https://talks.golang.org/2012/concurrency.slide#50][https://talks.golang.org/2012/concurrency.slide#50]]
 
-* Add cancellation
+* Adding cancellation
 
 .play tail_at_scale.go /^func main/,/^}/
 
 * That was the naïve implementation
 
-But it's not that hard to 'get fancy'
+But, it's not too hard to get "fancy"
 
-- Don't send 2nd request until 1st is past watermark (95th percentile expected latency)
+- Don't send 2nd request until 1st is past 95th percentile expected latency (2 contexts - one cancel)
 - Cancel in-flight requests (pass context to RPC subsystem)
 - Target-target communication (pass info on other in-flight requests over RPC)
 
-* For-select loops
+* Putting it all together
 
-Running a (possibly endless) loop inside a goroutine, selecting on 1 or more channels at each iteration.
+For-select loops put together almost all of the concepts in here.
 
-Lots of possible applications:
+Possible applications:
 
 - Event loops
 - GC
-- Synchronizing on state (kinda like an actor)
+- Sequential state mutation (like an actor)
+
+* For-select loop mechanics
+
+- Run a (possibly infinite) loop in a goroutine
+- Generally select on 2+ channels in each iteration, passing long running operations to other goroutines so they can continue to make progress
+- This pattern builds on almost all previous ones
 
 * Patterns
 
-- ack before and after real work is done. testing is easier and rate limiting/backpressure is easy
-- if you're ticking, build acks into `time.Ticker`
+- Ack before and after real work is done. testing is easier and rate limiting/backpressure is easy
+- If you're ticking, wrap `time.Ticker` to add ack
 - `net.Context` for cancellation
-- `sync.WaitGroup` for started and stopped loops
+- `sync.WaitGroup` for started and stopped
 
 * A for-select poller
 
@@ -175,16 +212,24 @@ Lots of possible applications:
 
 * Notes
 
-The poller is missing the ack.
+- The poller is missing the ack
+- We have a small utility at Iron to add acks to `time.Ticker` and `time.Timer`
+- Exercise left to the reader
 
-We have a small library at Iron that wraps `time.Timer`, to add ack.
+* Conclusion
 
-Exercise left to the reader.
+Go has really good built in concurrency primitives.
 
-* Putting it all together
+I believe we (the community) are starting to build good patterns & tools to _responsibly_ build on them.
 
-Go already has higher level concurrency abstractions, I believe we're starting to
-get good patterns/tools to use them better.
+* If you take one thing away
 
-I'm most excited to see `net.Context` spread throughout the community.
-Very powerful for building large systems, especially I/O heavy.
+Use `net.Context` somewhere in your codebase.
+
+Or, at least try it.
+
+It's simple and powerful, and follows the "Go way."
+
+* If you take two things away
+
+Add reading and understanding [[https://talks.golang.org/2012/concurrency.slide][Go Concurrency Patterns]].
