@@ -21,8 +21,6 @@ Because Go has powerful concurrency primitives.
 
 I'm discussing today how to use them responsibly.
 
-This talk is aimed toward anyone who writes reusable code.
-
 * Today
 
 Conventions & patterns for:
