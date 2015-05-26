@@ -12,7 +12,7 @@ http://github.com/arschles
 
 - Database & backend systems engineer at Iron.io
 - Writing Go for ~2 yrs, JVM for a while during/before that
-- Distributed systems at Zynga, StackMob, PayPal, now Iron
+- Distributed systems at Zynga, StackMob, PayPal, now Iron.io
 - C -> C++ -> Python/PHP -> Java -> Scala -> Go
 
 * "It's almost too easy to write concurrency bugs in Go"
@@ -213,7 +213,7 @@ Possible applications:
 * Notes
 
 - The poller is missing the ack
-- We have a small utility at Iron to add acks to `time.Ticker` and `time.Timer`
+- We have a small utility at Iron.io to add acks to `time.Ticker` and `time.Timer`
 - Exercise left to the reader
 
 * Conclusion
