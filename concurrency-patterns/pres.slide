@@ -145,7 +145,11 @@ Select on the channel and a timer. Or, do better...
 
 * Context interface
 
+With (excellent) comments taken out for brevity.
+
 .code context-bare.go
+
+(Copyright (c) 2009 The Go Authors. All rights reserved. Please see [[https://github.com/golang/net/blob/master/LICENSE][the full license]] for more.)
 
 * Using contexts
 
