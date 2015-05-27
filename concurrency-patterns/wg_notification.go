@@ -10,11 +10,11 @@ func startLoop(n int) *sync.WaitGroup {
 	go func() {
 		first := true
 		for {
+			// do some work here
 			if first {
 				wg.Done()
 				first = false
 			}
-			// do some work here
 		}
 	}()
 	return &wg
