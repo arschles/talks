@@ -74,7 +74,7 @@ Worth paying attention to conventions from other communities (e.g. lock acquisit
 
 - Documentation may establish contracts or invariants that code can't or won't
 - Code should be as self-documenting as possible, but don't let Godoc be empty
-- The remainder of this talk shows has mostly runnable code
+- The remainder of this talk has mostly runnable code
 
 * WaitGroup
 
