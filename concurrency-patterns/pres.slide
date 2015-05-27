@@ -192,8 +192,8 @@ Possible applications:
 * For-select loop mechanics
 
 - Run a (possibly infinite) loop in a goroutine
-- Generally select on 2+ channels in each iteration, passing long running operations to other goroutines so they can continue to make progress
-- This pattern builds on almost all previous ones
+- Generally select on 2+ channels in each iteration
+- Sometimes pass long running operations to other goroutines
 
 * Patterns
 
