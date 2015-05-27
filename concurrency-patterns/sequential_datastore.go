@@ -21,7 +21,7 @@ func datastoreGet() int {
 func GetAll() []int {
 	ints := make([]int, 10)
 	for i := 0; i < 10; i++ {
-		ints[i] = datastoreGet()
+		ints[i] = datastoreGet() // sleeps for <= 1sec, then returns a random int
 	}
 	return ints
 }
