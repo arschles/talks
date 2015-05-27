@@ -25,7 +25,7 @@ I'm discussing today how to use them responsibly.
 
 Conventions & patterns for:
 
-- `mutex`, `chan` and `sync.WaitGroup`
+- `sync.Mutex`, `chan` and `sync.WaitGroup`
 - [[http://blog.golang.org/go-concurrency-patterns-timing-out-and][Timeouts]], cancellation and [[http://godoc.org/golang.org/x/net/context][net.Context]]
 - For-select loops
 
@@ -43,19 +43,17 @@ But prefer sharing memory by communicating.
 
 - `defer` unlocking wherever possible
 - Document ownership in your *public* interface
-- If mutual exclusion crosses a public interface boundary, abstract it
+- Abstract mutual exclusion if it crosses an exported `func`
 
-Also, good conventions already exist from other communities (e.g. lock order conventions).
+Worth paying attention to conventions from other communities (e.g. lock acquisition order).
 
-* Documentating Mutual Exclusion
+* Documenting Mutual Exclusion
 
 .code request_ids.go
 
 * Channels
 
  Share memory by communicating.
-
-This means passing messages.
 
 - Channels + goroutines are "easy" but powerful enough to build real systems
 - They're built in for a reason. Use them by default
