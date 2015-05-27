@@ -83,7 +83,8 @@ If you're waiting for a `chan` to close or receive a `struct{}`, can you use a `
 Use these as:
 
 - Notifiers for one-time events
-- Synchronization points to write deterministic tests
+- Rendezvous points
+- Helpers to write deterministic tests
 
 * Notification of an event
 
@@ -224,7 +225,7 @@ I believe we (the community) are starting to build good patterns & tools to _res
 
 * If you take one thing away
 
-Use `net.Context` somewhere in your codebase.
+Use `net.Context` in your codebase.
 
 Or, at least try it.
 

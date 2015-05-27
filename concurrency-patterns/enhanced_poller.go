@@ -49,7 +49,7 @@ func main() {
 }
 
 func poll(ctx context.Context) (*sync.WaitGroup, *sync.WaitGroup, <-chan string) {
-	var start, end sync.WaitGroup
+	var start, end sync.WaitGroup // start & end notifications to multiple parties
 	start.Add(1)
 	end.Add(1)
 	ch := make(chan string)
