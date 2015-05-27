@@ -132,7 +132,7 @@ Your system shouldn't grind to a halt on channel sends.
 
 .image deadlock.png
 
-Select on the channel and a `time.Timer`. Or, do better...
+Select on the channel and a timer. Or, do better...
 
 * Use net.Context
 
