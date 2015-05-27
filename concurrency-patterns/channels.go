@@ -10,7 +10,7 @@ import "sync"
 // if there is no goroutine already listening on it.
 //
 // Returns ErrNotFound if the request is not reserved at call time.
-// If any error is returned, WatchChanges will neither do any operations on ch.
+// WatchChanges will do no operations on ch if any non-nil error is returned.
 func WatchChanges(reqID string, ch chan<- int) error
 
 // WatchAll watches for all events on the given request.

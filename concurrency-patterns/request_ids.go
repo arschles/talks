@@ -4,19 +4,20 @@ import "errors"
 
 var ErrNotReserved = errors.New("not reserved")
 
-// RequestState is an in-memory table to track the state of all requests.
-// States can be any possible uint64 - it's up to the caller to decide on the meaning of each.
-type RequestState interface {
-	// GetAndReserve waits for the state to be available, then returns it.
-	// On success, you have ownership of this state. Use the returned string as an
-	// ownership token to indicate your ownership of id in later calls.
-	// Returns an error if communication with underlying storage fails.
-	// On failure, you don't have ownership.
-	GetAndReserve(id string) (uint64, string, error)
+// Reserver is a map[string]interface{} where each key/value pair
+// can be reserved by callers for mutually exclusive read-modify-write
+// operations.
+type Reserver interface {
+	// GetAndReserve waits for the key to be unreserved, then reserves it for mutual exclusion.
+	// On success, returns the current state and reservation ID. Use the latter in
+	// future calls that require a reservation ID. If a non-nil error is returned, no
+	// reservation is established and the returned value and reservation ID are invalid.
+	GetAndReserve(key string) (val interface{}, reservationID string, err error)
 
-	// SetReserved sets the state of the given request ID, given the ownership ID.
-	// Doesn't set the state and returns ErrNotReserved if the state wasn't reserved
-	// by the given ownership ID. After this call returns successfully, you no
-	// longer have ownership of id and ownershipID is invalidated. Do not reuse it.
-	SetReserved(id, ownershipID string, state uint64) error
+	// SetReserved sets the value of the given key if reservationID is valid
+	// and points to the current reservation. After this call returns successfully,
+	// the caller doesn't have ownership of key and reservationID is invalid.
+	// Returns ErrNotReserved if the reservation ID is invalid or not the current reservation.
+	// On any non-nil error, neither the value nor the current reservation are changed.
+	SetReserved(key, reservationID string, value interface{}) error
 }
