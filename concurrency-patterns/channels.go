@@ -4,10 +4,7 @@ import "sync"
 
 // WatchChanges will watch the state of the given request. ch will send after
 // each request state change and will be closed after the request is removed from
-// the request state database.
-//
-// WatchChanges sends on ch from the same goroutine as the caller and will deadlock
-// if there is no goroutine already listening on it.
+// the request state database. Sends on ch from the same goroutine as the caller.
 //
 // Returns ErrNotFound if the request is not reserved at call time.
 // WatchChanges will do no operations on ch if any non-nil error is returned.
