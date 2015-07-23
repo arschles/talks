@@ -109,7 +109,7 @@ How I'm defining fan-in:
 
 - Read about it under "Fan-out, fan-in" section at [[https://blog.golang.org/pipelines][https://blog.golang.org/pipelines]]
 - `sync.WaitGroup` and a few channels make fan-in simple & understandable
-- In many cases, you can get an easy latency win without changing an API
+- In many cases, you can get an easy latency win without changing an exported `func`
 
 * Sequential datastore queries
 
