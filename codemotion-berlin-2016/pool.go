@@ -47,7 +47,8 @@ func main() {
 	}
 
 	// receive work from all the workers. results will receive as they are
-	// completed by workers
+	// completed by workers. use the sync.WaitGroup as a simple barrier to wait
+	// until all receies to complete
 	var wg sync.WaitGroup
 	for _, wi := range workItems {
 		wg.Add(1)
