@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"sync"
 	"time"
 )
 
@@ -22,8 +23,8 @@ type workItem struct {
 
 func wrk(ch <-chan workItem) {
 	item := <-ch                        // get some work to do
-	time.Sleep(item.dur)                // do the "work"
-	item.reply <- rand.Int() + item.add // return the result of the "work"
+	time.Sleep(item.dur)                // do the work
+	item.reply <- rand.Int() + item.add // return the result of the work
 }
 
 func main() {
@@ -33,16 +34,31 @@ func main() {
 		go wrk(submitCh)
 	}
 
+	// submit work to each worker
+	workItems := make([]workItem, numWorkers)
 	for i := 0; i < numWorkers; i++ {
-		wi := workItem{
+		wItem := workItem{
 			reply: make(chan int),
 			add:   rand.Int(),
-			dur:   time.Duration(rand.Intn(150)) * time.Millisecond,
+			dur:   time.Duration(rand.Intn(10)) * time.Second,
 		}
-		submitCh <- wi
-		fmt.Println(<-wi.reply)
+		submitCh <- wItem
+		workItems[i] = wItem
 	}
 
-	// Note: we don't have a mechanism to shut down the wrk goroutines in a
-	// clean way. Use the context example in ./ctx.go to do that!
+	// receive work from all the workers. results will receive as they are
+	// completed by workers
+	var wg sync.WaitGroup
+	for _, wi := range workItems {
+		wg.Add(1)
+		go func(repl <-chan int) {
+			defer wg.Done()
+			fmt.Println(<-repl)
+		}(wi.reply)
+	}
+
+	wg.Wait()
+
+	// Note: we didn't build in a mechanism to shut down the wrk goroutines.
+	// Hint: use the context package from ./ctx.go to do that!
 }
