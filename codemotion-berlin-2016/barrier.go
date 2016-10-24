@@ -11,6 +11,10 @@ func init() {
 	rand.Seed(time.Now().UnixNano())
 }
 
+func processDur() time.Duration {
+	return time.Duration(rand.Intn(20)) * time.Second
+}
+
 // does some "work" and sends the result on ch
 func process(dur time.Duration, ch chan<- int) {
 	time.Sleep(dur)
@@ -26,8 +30,7 @@ func main() {
 	for i := 0; i <= 20; i++ {
 		wg.Add(1)
 		ch := make(chan int)
-		workDur := time.Duration(rand.Intn(20)) * time.Second
-		go process(workDur, ch)
+		go process(processDur(), ch)
 
 		go func() {
 			// indicate that the worker goroutine is done after it processes and sends its result
