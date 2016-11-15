@@ -5,6 +5,6 @@ import (
 )
 
 func recvHandler(w http.ResponseWriter, r *http.Request) {
-	discussionCh := <-coordCh
+	stream := <-streamsCh
 	w.Write([]byte(<-msgCh))
 }

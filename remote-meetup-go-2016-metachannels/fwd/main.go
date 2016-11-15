@@ -5,8 +5,7 @@ import (
 )
 
 var (
-	streamsCh = make(chan chan chan string)
-	streamCh  = make(chan chan string)
+	streamsCollCh = make(chan chan chan string)
 )
 
 func main() {
