@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"log"
 )
 
 func jsonEncoder(argCh <-chan encoderArg, quitCh <-chan struct{}) {
@@ -15,6 +16,7 @@ func jsonEncoder(argCh <-chan encoderArg, quitCh <-chan struct{}) {
 			}
 			arg.retCh <- encoded
 		case <-quitCh:
+			log.Printf("json encoder stopped")
 			return
 		}
 	}

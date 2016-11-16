@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/base64"
 	"fmt"
+	"log"
 )
 
 func base64Encoder(argCh <-chan encoderArg, quitCh <-chan struct{}) {
@@ -13,6 +14,7 @@ func base64Encoder(argCh <-chan encoderArg, quitCh <-chan struct{}) {
 			encoded := base64.StdEncoding.EncodeToString([]byte(str))
 			arg.retCh <- []byte(encoded)
 		case <-quitCh:
+			log.Printf("base 64 encoder stopped")
 			return
 		}
 	}
