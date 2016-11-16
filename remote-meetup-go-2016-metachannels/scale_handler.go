@@ -13,7 +13,10 @@ func scaleHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "invalid number", http.StatusInternalServerError)
 		return
 	}
-	// shut down all encoders first
+	// shut down all encoders first. in production code, consider using the stdlib's context
+	// package for cancellation. it has some useful additional features too!
+	//
+	// https://godoc.org/context
 	close(stopCh)
 	stopCh = make(chan struct{})
 	for i := 0; i < n; i++ {
