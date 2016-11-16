@@ -47,6 +47,7 @@ func main() {
 	/////
 	http.HandleFunc("/chained", chainedEncoderHandler)
 
+	// just starting the server
 	log.Printf("listening on port 8080")
 	http.ListenAndServe(":8080", nil)
 }
