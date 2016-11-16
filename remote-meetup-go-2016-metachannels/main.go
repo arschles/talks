@@ -30,12 +30,7 @@ func main() {
 	// switching encoders on the fly: level II
 	// we can switch implementations of encodings on the fly, just by switching the channels
 	/////
-	http.HandleFunc("/switch", func(w http.ResponseWriter, r *http.Request) {
-		tmpCh := jsonCh
-		jsonCh = base64Ch
-		base64Ch = tmpCh
-		w.WriteHeader(http.StatusOK)
-	})
+	http.HandleFunc("/switch", switchHandler)
 
 	/////
 	// scaling up and down the number of encoders in the worker pool: level III
