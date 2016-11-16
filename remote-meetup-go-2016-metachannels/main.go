@@ -6,12 +6,18 @@ import (
 	"time"
 )
 
+const numEncoders = 5
+
 func main() {
 	jsonCh := make(chan encoderArg)
 	base64Ch := make(chan encoderArg)
 	stopCh := make(chan struct{})
-	go jsonEncoder(jsonCh, stopCh)
-	go base64Encoder(base64Ch, stopCh)
+
+	log.Printf("starting %d encoders", numEncoders)
+	for i := 0; i < numEncoders; i++ {
+		go jsonEncoder(jsonCh, stopCh)
+		go base64Encoder(base64Ch, stopCh)
+	}
 
 	http.HandleFunc("/json", func(w http.ResponseWriter, r *http.Request) {
 		arg := newEncoderArg(r.URL.Query().Get("val"))
