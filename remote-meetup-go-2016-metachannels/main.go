@@ -6,9 +6,10 @@ import (
 )
 
 var (
-	jsonCh   = make(chan encoderArg)
-	base64Ch = make(chan encoderArg)
-	stopCh   = make(chan struct{})
+	jsonCh           = make(chan encoderArg)
+	base64Ch         = make(chan encoderArg)
+	chainedEncoderCh = make(chan chainedEncoderArg)
+	stopCh           = make(chan struct{})
 )
 
 func main() {
@@ -16,11 +17,12 @@ func main() {
 	for i := 0; i < 5; i++ {
 		go jsonEncoder(jsonCh, stopCh)
 		go base64Encoder(base64Ch, stopCh)
+		go chainedEncoder(chainedEncoderCh)
 	}
 
 	http.HandleFunc("/json", jsonHandler)
 	http.HandleFunc("/base64", base64Handler)
-
+	http.HandleFunc("/chained", chainedEncoderHandler)
 	// we can switch implementations of encodings on the fly, just by switching the channels
 	http.HandleFunc("/switch", func(w http.ResponseWriter, r *http.Request) {
 		tmpCh := jsonCh
