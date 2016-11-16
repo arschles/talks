@@ -20,10 +20,16 @@ func main() {
 		go chainedEncoder(chainedEncoderCh)
 	}
 
+	/////
+	// json and base64 encoders: level I
+	/////
 	http.HandleFunc("/json", jsonHandler)
 	http.HandleFunc("/base64", base64Handler)
-	http.HandleFunc("/chained", chainedEncoderHandler)
+
+	/////
+	// switching encoders on the fly: level II
 	// we can switch implementations of encodings on the fly, just by switching the channels
+	/////
 	http.HandleFunc("/switch", func(w http.ResponseWriter, r *http.Request) {
 		tmpCh := jsonCh
 		jsonCh = base64Ch
@@ -31,7 +37,15 @@ func main() {
 		w.WriteHeader(http.StatusOK)
 	})
 
+	/////
+	// scaling up and down the number of encoders in the worker pool: level III
+	/////
 	http.HandleFunc("/scale", scaleHandler)
+
+	/////
+	// chaining encoders together on the fly: level IV
+	/////
+	http.HandleFunc("/chained", chainedEncoderHandler)
 
 	log.Printf("listening on port 8080")
 	http.ListenAndServe(":8080", nil)
