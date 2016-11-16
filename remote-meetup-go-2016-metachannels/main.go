@@ -46,6 +46,9 @@ func main() {
 	})
 
 	http.HandleFunc("/stop", func(w http.ResponseWriter, r *http.Request) {
+		// NOTE: multiple calls to stop won't work here because you can't close a closed channel.
+		// consider this package to do this kind of cancellation for production code:
+		// https://godoc.org/context
 		close(stopCh)
 		w.Write([]byte("stopped"))
 	})
