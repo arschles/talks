@@ -4,19 +4,16 @@ build:
 run:
 	./concfunc
 
-test:
-	@echo "json:"
+test-basic:
+	@echo "/json"
 	curl localhost:8080/json?val=abcd
 	@echo ""
-	@echo "base64:"
+	@echo "/base64"
 	curl localhost:8080/base64?val=abcd
 	@echo ""
-	@echo "stopping"
-	curl localhost:8080/stop
-	@echo ""
-	@echo "json:"
-	curl localhost:8080/json?val=abcd
-	@echo ""
-	@echo "base64:"
-	curl localhost:8080/base64?val=abcd
-	@echo ""
+
+test-switch:
+	curl localhost:8080/switch
+
+test-scale:
+	curl localhost:8080/scale?num=500

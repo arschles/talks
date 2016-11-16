@@ -3,55 +3,33 @@ package main
 import (
 	"log"
 	"net/http"
-	"time"
 )
 
-const numEncoders = 5
+var (
+	jsonCh   = make(chan encoderArg)
+	base64Ch = make(chan encoderArg)
+	stopCh   = make(chan struct{})
+)
 
 func main() {
-	jsonCh := make(chan encoderArg)
-	base64Ch := make(chan encoderArg)
-	stopCh := make(chan struct{})
-
-	log.Printf("starting %d encoders", numEncoders)
-	for i := 0; i < numEncoders; i++ {
+	log.Println("starting 5 encoders")
+	for i := 0; i < 5; i++ {
 		go jsonEncoder(jsonCh, stopCh)
 		go base64Encoder(base64Ch, stopCh)
 	}
 
-	http.HandleFunc("/json", func(w http.ResponseWriter, r *http.Request) {
-		arg := newEncoderArg(r.URL.Query().Get("val"))
-		jsonCh <- arg
-		select {
-		case err := <-arg.errCh:
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-		case ret := <-arg.retCh:
-			w.Write(ret)
-		case <-time.After(100 * time.Millisecond):
-			http.Error(w, "failed to encode within 100ms", http.StatusInternalServerError)
-		}
+	http.HandleFunc("/json", jsonHandler)
+	http.HandleFunc("/base64", base64Handler)
+
+	// we can switch implementations of encodings on the fly, just by switching the channels
+	http.HandleFunc("/switch", func(w http.ResponseWriter, r *http.Request) {
+		tmpCh := jsonCh
+		jsonCh = base64Ch
+		base64Ch = tmpCh
+		w.WriteHeader(http.StatusOK)
 	})
 
-	http.HandleFunc("/base64", func(w http.ResponseWriter, r *http.Request) {
-		arg := newEncoderArg(r.URL.Query().Get("val"))
-		base64Ch <- arg
-		select {
-		case err := <-arg.errCh:
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-		case ret := <-arg.retCh:
-			w.Write(ret)
-		case <-time.After(100 * time.Millisecond):
-			http.Error(w, "failed to encode within 100ms", http.StatusInternalServerError)
-		}
-	})
-
-	http.HandleFunc("/stop", func(w http.ResponseWriter, r *http.Request) {
-		// NOTE: multiple calls to stop won't work here because you can't close a closed channel.
-		// consider this package to do this kind of cancellation for production code:
-		// https://godoc.org/context
-		close(stopCh)
-		w.Write([]byte("stopped"))
-	})
+	http.HandleFunc("/scale", scaleHandler)
 
 	log.Printf("listening on port 8080")
 	http.ListenAndServe(":8080", nil)
